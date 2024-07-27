@@ -50,7 +50,7 @@ export default function GameProvider({ children }: PropsWithChildren) {
   };
 
   const getTiles = () => {
-    return gameState.tilesByIds.map((tileId) => gameState.tiles[tileId]);
+    return gameState.tilesByIds.map((tileId) => gameState.tiles[tileId]).filter(tile => !!tile);
   };
 
   const moveTiles = useCallback(

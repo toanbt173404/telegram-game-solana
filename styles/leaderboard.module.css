@@ -22,7 +22,6 @@
 }
 
 .lbTable {
-  width: 80%;
   border-collapse: collapse;
   margin: 20px 0;
 }
@@ -31,15 +30,12 @@
 .lbTable td {
   border: 1px solid #ddd;
   padding: 8px;
+  text-align: center;
 }
 
 .lbTable th {
   background-color: #4caf50;
   color: white;
-  text-align: center;
-}
-
-.lbTable td {
   text-align: center;
 }
 

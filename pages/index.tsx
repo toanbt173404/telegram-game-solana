@@ -74,7 +74,7 @@ const Home = () => {
         <link rel="icon" type="image/png" sizes="32x32" href="favicon32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="favicon16.png" />
       </Head>
-      {walletAddress && <p className={styles.wallet}>Wallet: {walletAddress}</p>}
+      {walletAddress && <p className={styles.wallet}>Wallet: {walletAddress.slice(0, 16)}...</p>}
       <header>
         <h1>2048</h1>
         <Score />

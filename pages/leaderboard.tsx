@@ -74,6 +74,8 @@ const Leaderboard = () => {
             <header>
                 <h1>Leaderboard</h1>
             </header>
+
+            <button onClick={handleBackToGame} className={styles.backButton}>Back to Game</button>
             <main>
                 {loading ? (
                     <div className={styles.spinner}></div>
@@ -99,14 +101,22 @@ const Leaderboard = () => {
                                     .map((asset, index) => (
                                         <tr key={asset.id}>
                                             <td>{index + 1}</td>
-                                            <td>{asset.owner.referenceId}</td>
+                                            <td
+                                              style={{
+                                                textOverflow: 'ellipsis',
+                                                maxWidth: '150px',
+                                                overflow: 'hidden'
+                                              }}
+                                            >
+                                              {asset.owner.referenceId}
+                                            </td>
                                             <td>
                                                 <a
                                                     href={`https://explorer.solana.com/address/${asset.mintAddress}?cluster=devnet`}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                 >
-                                                    {asset.mintAddress}
+                                                    {asset.mintAddress.slice(0, 6) + '...'}
                                                 </a>
                                             </td>
                                             <td>{asset.attributes?.find(attr => attr.traitType === 'score')?.value}</td>
@@ -116,7 +126,6 @@ const Leaderboard = () => {
                         </table>
                     </>
                 )}
-                <button onClick={handleBackToGame} className={styles.backButton}>Back to Game</button>
             </main>
         </div>
     );

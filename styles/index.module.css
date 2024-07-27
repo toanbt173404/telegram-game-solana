@@ -64,6 +64,7 @@
 .submitAction {
   display: flex;
   justify-content:space-between;
+  gap: 10px;
 }
 
 .submitButton {
@@ -76,7 +77,6 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  height: 50px;
 }
 
 .submitButton:hover {

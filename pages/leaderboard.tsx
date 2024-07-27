@@ -104,7 +104,7 @@ const Leaderboard = () => {
                                             <td
                                               style={{
                                                 textOverflow: 'ellipsis',
-                                                maxWidth: '150px',
+                                                maxWidth: '100px',
                                                 overflow: 'hidden'
                                               }}
                                             >

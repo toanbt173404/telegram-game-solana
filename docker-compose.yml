@@ -1,0 +1,10 @@
+version: '3.5'
+
+services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: docker-game-solana-2048
+        ports:
+            - '2048:3000'

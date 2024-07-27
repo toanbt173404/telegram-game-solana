@@ -10,5 +10,6 @@ export default function Score() {
       Score
       <div>{score}</div>
     </div>
+    
   );
 }

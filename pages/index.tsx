@@ -16,16 +16,26 @@ const Home = () => {
   const router = useRouter();
   const { score, resetGame } = useContext(GameContext);
   const [loading, setLoading] = useState(false);
+  const [walletAddress, setWalletAddress] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isAuthenticated) {
       router.push('/login');
+    } else {
+      // Fetch wallet address
+      const fetchWalletAddress = async () => {
+        try {
+          const res = await gameshiftService.fetchUserWallet(email!);
+          console.log('res: ', res)
+          setWalletAddress(res.data.address);
+        } catch (error) {
+          console.error('Error fetching wallet address:', error);
+          toast.error('Failed to fetch wallet address.');
+        }
+      };
+      fetchWalletAddress();
     }
-  }, [isAuthenticated, router]);
-
-  if (!isAuthenticated) {
-    return null;
-  }
+  }, [isAuthenticated, email, router]);
 
   const submitScore = async () => {
     setLoading(true);
@@ -33,7 +43,7 @@ const Home = () => {
       const res = await gameshiftService.submitToLeaderBoard(score, email!);
       console.log('res: ', res);
       toast.success('Score submitted successfully!');
-      resetGame()
+      resetGame();
     } catch (error) {
       console.log('error: ', error);
       toast.error('Failed to submit score.');
@@ -41,6 +51,10 @@ const Home = () => {
       setLoading(false);
     }
   };
+
+  if (!isAuthenticated) {
+    return null;
+  }
 
   return (
     <div className={styles.twenty48}>
@@ -60,6 +74,7 @@ const Home = () => {
         <link rel="icon" type="image/png" sizes="32x32" href="favicon32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="favicon16.png" />
       </Head>
+      {walletAddress && <p className={styles.wallet}>Wallet: {walletAddress}</p>}
       <header>
         <h1>2048</h1>
         <Score />
@@ -67,12 +82,12 @@ const Home = () => {
       <main>
         <Board />
         <div className={styles.submitAction}>
-        <button onClick={submitScore} className={styles.submitButton} disabled={loading}>
-          {loading ? 'Submitting...' : 'Submit to Leaderboard'}
-        </button>
-        <Link href="/leaderboard">
-          <div className={styles.leaderboardLink}>View Leaderboard</div>
-        </Link>
+          <button onClick={submitScore} className={styles.submitButton} disabled={loading}>
+            {loading ? 'Submitting...' : 'Submit to Leaderboard'}
+          </button>
+          <Link href="/leaderboard">
+            <div className={styles.leaderboardLink}>View Leaderboard</div>
+          </Link>
         </div>
       </main>
       <ToastContainer />

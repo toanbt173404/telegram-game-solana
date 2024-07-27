@@ -21,12 +21,6 @@ class GameShiftService {
         });
     }
 
-    async fetchUser() {
-        return await this.axiosGameShift.get(
-            GAME_SHIFT_URL + '/users/referenceId'
-        );
-    }
-
     async submitToLeaderBoard(score: number, referenceId: string) {
 
         const data = {
@@ -61,9 +55,20 @@ class GameShiftService {
     }
 
 
-    async fetchwalletAddress() {
+    async fetchUser(referenceId: string) {
+
+        const params = {
+            referenceId
+        }
         return await this.axiosGameShift.get(
-            GAME_SHIFT_URL + '/users/referenceId/wallet-address'
+            GAME_SHIFT_URL + `/users/${referenceId}`
+        );
+    }
+
+    async fetchUserWallet(referenceId: string) {
+
+        return await this.axiosGameShift.get(
+            GAME_SHIFT_URL + `/users/${referenceId}/wallet-address`
         );
     }
 }

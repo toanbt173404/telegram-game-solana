@@ -18,14 +18,20 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
   const login = async (email: string, password: string) => {
     try {
+      const res = await gameshiftService.fetchUser(email);
+      if (res && res.status == 200) {
+        setEmail(email);
+        setIsAuthenticated(true);
+        router.push('/');
+      }
+    } catch (error: any) {
       const res = await gameshiftService.createUser(email);
       if (res && res.status === 201) {
         setEmail(email);
         setIsAuthenticated(true);
         router.push('/');
       }
-    } catch (error) {
-      console.error(error);
+
     }
   };
 
